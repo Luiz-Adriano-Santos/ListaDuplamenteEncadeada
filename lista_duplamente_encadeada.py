@@ -1,6 +1,4 @@
-# Nome: Luiz Adriano e Andres Kindel
-
-class ListaDuplamenteCadeada:
+class ListaDuplamenteEncadeada:
     def __init__(self, capacidade_maxima):
         self.__primeiro = None
         self.__ultimo = None
@@ -155,10 +153,18 @@ class ListaDuplamenteCadeada:
 
     def posicao_de(self, chave):
         self.__cursor = self.__primeiro
-        posicao = 0
+        posicao = 1
         while posicao < self.__tamanho:
             if self.__cursor.chave() == chave:
                 return posicao
             self.__cursor = self.__cursor.proximo()
             posicao += 1
         return -1
+
+    def exibir_lista(self):
+        no_atual = self.__primeiro
+        valores = []
+        while no_atual is not None:
+            valores.append(no_atual.valor())
+            no_atual = no_atual.proximo()
+        print("Lista: ", valores)
