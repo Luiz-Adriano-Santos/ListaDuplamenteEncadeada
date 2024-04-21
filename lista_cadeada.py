@@ -1,6 +1,3 @@
-from caixa import Caixa
-
-
 class ListaDuplamenteCadeada:
     def __init__(self, capacidade_maxima):
         self.__primeiro = None
