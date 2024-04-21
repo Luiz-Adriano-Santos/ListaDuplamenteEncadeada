@@ -1,3 +1,5 @@
+#Nomes: Luiz Adriano e Andres Kindel
+
 class ListaDuplamenteEncadeada:
     def __init__(self, capacidade_maxima):
         self.__primeiro = None
