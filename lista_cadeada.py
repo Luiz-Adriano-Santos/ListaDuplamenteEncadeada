@@ -124,3 +124,12 @@ class ListaDuplamenteCadeada:
             self.__cursor = self.__cursor.proximo()
             x += 1
         self.excluir_atual()
+    
+    
+    def buscar(self, chave):
+        self.__cursor = self.__primeiro
+        while self.__cursor is not None:
+            if self.__cursor.chave() == chave:
+                return True
+            self.__cursor = self.__cursor.proximo()
+        return False
