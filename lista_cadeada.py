@@ -2,11 +2,12 @@ from caixa import Caixa
 
 
 class ListaDuplamenteCadeada:
-    def __init__(self):
+    def __init__(self, capacidade_maxima):
         self.__primeiro = None
         self.__ultimo = None
         self.__tamanho = 0
         self.__cursor = None
+        self.__capacidade_maxima = capacidade_maxima
 
     def tamanho(self):
         return self.__tamanho
@@ -110,7 +111,7 @@ class ListaDuplamenteCadeada:
                 return True
             self.__cursor = self.__cursor.proximo()
             x += 1
-    
+
     def excluir_da_posicao_k(self, k):
         self.__cursor = self.__primeiro
         if k == 0:
@@ -124,8 +125,7 @@ class ListaDuplamenteCadeada:
             self.__cursor = self.__cursor.proximo()
             x += 1
         self.excluir_atual()
-    
-    
+
     def buscar(self, chave):
         self.__cursor = self.__primeiro
         while self.__cursor is not None:
@@ -133,3 +133,33 @@ class ListaDuplamenteCadeada:
                 return True
             self.__cursor = self.__cursor.proximo()
         return False
+
+    def avancar_k_posicoes(self, k):
+        for i in range(k):
+            self.__cursor = self.__cursor.proximo()
+
+    def retroceder_k_posicoes(self, k):
+        for i in range(k):
+            self.__cursor = self.__cursor.anterior()
+
+    def ir_para_ultimo(self):
+        self.__cursor = self.__ultimo
+
+    def ir_para_primeiro(self):
+        self.__cursor = self.__primeiro
+
+    def vazia(self):
+        return self.__tamanho == 0
+
+    def cheia(self):
+        return self.__tamanho == self.__capacidade_maxima
+
+    def posicao_de(self, chave):
+        self.__cursor = self.__primeiro
+        posicao = 0
+        while posicao < self.__tamanho:
+            if self.__cursor.chave() == chave:
+                return posicao
+            self.__cursor = self.__cursor.proximo()
+            posicao += 1
+        return -1
