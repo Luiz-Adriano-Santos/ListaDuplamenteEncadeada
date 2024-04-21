@@ -79,10 +79,48 @@ class ListaDuplamenteCadeada:
         self.inserir_antes_do_atual(novo)
         return True
 
-    def buscar(self, chave):
+    def excluir_atual(self):
+        guardar = self.__cursor
+        guardar.anterior().set_proximo(guardar.proximo())
+        guardar.proximo().set_anterior(guardar.anterior())
+        self.__cursor = self.__cursor.anterior()
+        self.__tamanho -= 1
+
+    def excluir_primeiro(self):
+        self.__primeiro = self.__primeiro.proximo()
         self.__cursor = self.__primeiro
-        while self.__cursor is not None:
+        self.__tamanho -= 1
+
+    def excluir_ultimo(self):
+        self.__ultimo = self.__ultimo.anterior()
+        self.__cursor = self.__ultimo
+        self.__tamanho -= 1
+
+    def excluir_elemento(self, chave):
+        self.__cursor = self.__primeiro
+        x = 0
+        while x < self.__tamanho:
             if self.__cursor.chave() == chave:
+                if self.__cursor == self.__primeiro:
+                    self.excluir_primeiro()
+                elif self.__cursor == self.__ultimo:
+                    self.excluir_ultimo()
+                else:
+                    self.excluir_atual()
                 return True
             self.__cursor = self.__cursor.proximo()
-        return False
+            x += 1
+    
+    def excluir_da_posicao_k(self, k):
+        self.__cursor = self.__primeiro
+        if k == 0:
+            self.excluir_primeiro()
+            return
+        elif k == self.__tamanho:
+            self.excluir_ultimo()
+            return
+        x = 0
+        while x != k:
+            self.__cursor = self.__cursor.proximo()
+            x += 1
+        self.excluir_atual()
